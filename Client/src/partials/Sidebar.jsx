@@ -10,6 +10,10 @@ import { RiFolderTransferFill } from "react-icons/ri";
 import { BsFillPersonFill } from "react-icons/bs";
 
 function Sidebar({ sidebarOpen, setSidebarOpen }) {
+  ///
+  const [activeLink, setActiveLink] = useState("");
+  ///
+
   const location = useLocation();
   const { pathname } = location;
   const [role, setrole] = useState("");
@@ -150,86 +154,45 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
           <div>
             <ul className="mt-3">
               {/* <SidebarLinkGroup
-                activecondition={
-                  pathname === "/" || pathname.includes("dashboard")
-                }
-              >
-                {(handleClick, open) => {
-                  return (
-                    <React.Fragment>
-                      <Link
-                        to="#0"
-                        className={`block text-slate-200 truncate transition duration-150 ${
-                          pathname === "/" || pathname.includes("dashboard")
-                            ? "hover:text-slate-200"
-                            : "hover:text-white"
-                        }`}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          sidebarExpanded
-                            ? handleClick()
-                            : setSidebarExpanded(true);
-                        }}
-                      >
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center">
-                            <svg
-                              className="shrink-0 h-6 w-6"
-                              viewBox="0 0 24 24"
-                            >
-                              <path
-                                className={`fill-current ${
-                                  pathname === "/" ||
-                                  pathname.includes("dashboard")
-                                    ? "text-indigo-500"
-                                    : "text-slate-400"
-                                }`}
-                                d="M12 0C5.383 0 0 5.383 0 12s5.383 12 12 12 12-5.383 12-12S18.617 0 12 0z"
-                              />
-                              <path
-                                className={`fill-current ${
-                                  pathname === "/" ||
-                                  pathname.includes("dashboard")
-                                    ? "text-indigo-600"
-                                    : "text-slate-600"
-                                }`}
-                                d="M12 3c-4.963 0-9 4.037-9 9s4.037 9 9 9 9-4.037 9-9-4.037-9-9-9z"
-                              />
-                              <path
-                                className={`fill-current ${
-                                  pathname === "/" ||
-                                  pathname.includes("dashboard")
-                                    ? "text-indigo-200"
-                                    : "text-slate-400"
-                                }`}
-                                d="M12 15c-1.654 0-3-1.346-3-3 0-.462.113-.894.3-1.285L6 6l4.714 3.301A2.973 2.973 0 0112 9c1.654 0 3 1.346 3 3s-1.346 3-3 3z"
-                              />
-                            </svg>
-                            <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                              Dashboard
-                            </span>
-                          </div>
-                        </div>
-                      </Link>
-                    </React.Fragment>
-                  );
-                }}
+              
               </SidebarLinkGroup> */}
 
-              <div className="flex items-center justify-between">
+              <div
+                className={`flex items-center justify-between hover:bg-slate-500 ${
+                  activeLink === "/dashboard" ? "bg-slate-500" : ""
+                }`}
+              >
                 <div className="flex items-center">
                   <MdDashboard className="ml-3 text-white text-2xl" />
                   <span className="m-3 text-slate-200 ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                    <Link to="/dashboard">Dashboard</Link>
+                    <Link
+                      to="/dashboard"
+                      onMouseEnter={() => setActiveLink("/dashboard")}
+                      onMouseLeave={() => setActiveLink("")}
+                      onClick={() => setActiveLink("/dashboard")}
+                    >
+                      Dashboard
+                    </Link>
                   </span>
                 </div>
               </div>
               <div className="space-y-8 my-5">
-                <div className="flex items-center justify-between">
+              <div
+                className={`flex items-center justify-between hover:bg-slate-500 ${
+                  activeLink === "/myprofile" ? "bg-slate-500" : ""
+                }`}
+              >
                   <div className="flex items-center">
                     <TiUserAdd className="ml-3 text-white text-2xl" />
                     <span className="m-3 text-slate-200 ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                      <Link to="/myprofile">My Profile</Link>
+                    <Link
+                      to="/myprofile"
+                      onMouseEnter={() => setActiveLink("/myprofile")}
+                      onMouseLeave={() => setActiveLink("")}
+                      onClick={() => setActiveLink("/myprofile")}
+                    >
+                      My Profile
+                    </Link>
                     </span>
                   </div>
                 </div>
@@ -247,19 +210,41 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                       Clients
                     </span>
                   </h3>
-                  <div className="flex items-center justify-between">
+                  <div
+                className={`flex items-center justify-between hover:bg-slate-500 ${
+                  activeLink === "/addclient" ? "bg-slate-500" : ""
+                }`}
+              >
                     <div className="flex items-center">
                       <TiUserAdd className="ml-3 text-white text-2xl" />
                       <span className="m-3 text-slate-200 ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                        <Link to="/addclient">Add Client</Link>
+                      <Link
+                      to="/addclient"
+                      onMouseEnter={() => setActiveLink("/addclient")}
+                      onMouseLeave={() => setActiveLink("")}
+                      onClick={() => setActiveLink("/addclient")}
+                    >
+                      Add Client
+                    </Link>
                       </span>
                     </div>
                   </div>
-                  <div className="flex items-center justify-between">
+                  <div
+                className={`flex items-center justify-between hover:bg-slate-500 ${
+                  activeLink === "/myclient" ? "bg-slate-500" : ""
+                }`}
+              >
                     <div className="flex items-center">
                       <BsFillPeopleFill className="ml-3 text-white text-2xl" />
                       <span className="m-3 text-slate-200 ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                        <Link to="/myclient">My Client</Link>
+                      <Link
+                      to="/myclient"
+                      onMouseEnter={() => setActiveLink("/myclient")}
+                      onMouseLeave={() => setActiveLink("")}
+                      onClick={() => setActiveLink("/myclient")}
+                    >
+                      My Client
+                    </Link>
                       </span>
                     </div>
                   </div>
@@ -267,11 +252,22 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                     <></>
                   ) : (
                     <>
-                      <div className="flex items-center justify-between">
+                     <div
+                className={`flex items-center justify-between hover:bg-slate-500 ${
+                  activeLink === "/allclient" ? "bg-slate-500" : ""
+                }`}
+              >
                         <div className="flex items-center">
                           <BsFillPeopleFill className="ml-3 text-white text-2xl" />
                           <span className="m-3 text-slate-200 ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                            <Link to="/allclient">All Client</Link>
+                          <Link
+                      to="/allclient"
+                      onMouseEnter={() => setActiveLink("/allclient")}
+                      onMouseLeave={() => setActiveLink("")}
+                      onClick={() => setActiveLink("/allclient")}
+                    >
+                      All Client
+                    </Link>
                           </span>
                         </div>
                       </div>
@@ -293,19 +289,41 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                       Leads
                     </span>
                   </h3>
-                  <div className="flex items-center justify-between">
+                  <div
+                className={`flex items-center justify-between hover:bg-slate-500 ${
+                  activeLink === "/addlead" ? "bg-slate-500" : ""
+                }`}
+              >
                     <div className="flex items-center">
                       <MdOutlineLibraryAdd className="ml-3 text-white text-2xl" />
                       <span className="m-3 text-slate-200 ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                        <Link to="/addlead">Add Lead</Link>
+                      <Link
+                      to="/addlead"
+                      onMouseEnter={() => setActiveLink("/addlead")}
+                      onMouseLeave={() => setActiveLink("")}
+                      onClick={() => setActiveLink("/addlead")}
+                    >
+                      Add Lead
+                    </Link>
                       </span>
                     </div>
                   </div>
-                  <div className="flex items-center justify-between">
+                  <div
+                className={`flex items-center justify-between hover:bg-slate-500 ${
+                  activeLink === "/mylead" ? "bg-slate-500" : ""
+                }`}
+              >
                     <div className="flex items-center">
                       <MdOutlinePadding className="ml-3 text-white text-2xl" />
                       <span className="m-3 text-slate-200 ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                        <Link to="/mylead">My Lead</Link>
+                      <Link
+                      to="/mylead"
+                      onMouseEnter={() => setActiveLink("/mylead")}
+                      onMouseLeave={() => setActiveLink("")}
+                      onClick={() => setActiveLink("/mylead")}
+                    >
+                      My Lead
+                    </Link>
                       </span>
                     </div>
                   </div>
@@ -313,11 +331,22 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                     <></>
                   ) : (
                     <>
-                      <div className="flex items-center justify-between">
+                  <div
+                className={`flex items-center justify-between hover:bg-slate-500 ${
+                  activeLink === "/allead" ? "bg-slate-500" : ""
+                }`}
+              >
                         <div className="flex items-center">
                           <BsFillPeopleFill className="ml-3 text-white text-2xl" />
                           <span className="m-3 text-slate-200 ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                            <Link to="/allLead">All Lead</Link>
+                          <Link
+                      to="/alllead"
+                      onMouseEnter={() => setActiveLink("/alllead")}
+                      onMouseLeave={() => setActiveLink("")}
+                      onClick={() => setActiveLink("/alllead")}
+                    >
+                      All Lead
+                    </Link>
                           </span>
                         </div>
                       </div>
@@ -342,19 +371,41 @@ function Sidebar({ sidebarOpen, setSidebarOpen }) {
                           Employees
                         </span>
                       </h3>
-                      <div className="flex items-center justify-between">
+                      <div
+                className={`flex items-center justify-between hover:bg-slate-500 ${
+                  activeLink === "/allemployee" ? "bg-slate-500" : ""
+                }`}
+              >
                         <div className="flex items-center">
                           <BsFillPersonFill className="ml-3 text-white text-2xl" />
                           <span className="m-3 text-slate-200 ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                            <Link to="/allemployee">All Employees</Link>
+                          <Link
+                      to="/allemployee"
+                      onMouseEnter={() => setActiveLink("/allemployee")}
+                      onMouseLeave={() => setActiveLink("")}
+                      onClick={() => setActiveLink("/allemployee")}
+                    >
+                  All Employees
+                    </Link>
                           </span>
                         </div>
                       </div>
-                      <div className="flex items-center justify-between">
+                      <div
+                className={`flex items-center justify-between hover:bg-slate-500 ${
+                  activeLink === "/addemployee" ? "bg-slate-500" : ""
+                }`}
+              >
                         <div className="flex items-center">
                           <BsFillPersonFill className="ml-3 text-white text-2xl" />
                           <span className="m-3 text-slate-200 ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                            <Link to="/addemployee">Add Employees</Link>
+                          <Link
+                      to="/addemployee"
+                      onMouseEnter={() => setActiveLink("/addemployee")}
+                      onMouseLeave={() => setActiveLink("")}
+                      onClick={() => setActiveLink("/addemployee")}
+                    >
+                     Add Employees
+                    </Link>
                           </span>
                         </div>
                       </div>

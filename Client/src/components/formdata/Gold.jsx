@@ -4,7 +4,8 @@ import { useContext } from "react";
 import { ClientAdminContext, ClientListContext } from "../../Context/ClientList";
 import { useState, useEffect } from "react";
 import axios from "axios";
-
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const Gold = () => {
   const tokenData = localStorage.getItem("token");
   const token = JSON.parse(tokenData).usertoken;
@@ -20,6 +21,8 @@ const Gold = () => {
   const [client, setClient] = useState("");
   const [Aadharcard, setAadharcard] = useState(null);
   const [Pancard, setPancard] = useState(null);
+  const [Aadharcardpreview, setAadharcardpreview] = useState(null);
+  const [Pancardpreview, setPancardpreview] = useState(null);
 
   useEffect(() => {
     if(role === "admin"){
@@ -34,28 +37,63 @@ const Gold = () => {
 
     try {
       const formData = new FormData();
-      formData.append("clientId", client);
-      formData.append("loanAmount", LoanAmount);
-      formData.append("serviceId", serviceId);
-      formData.append("Aadharcard", Aadharcard);
-      formData.append("Pancard", Pancard);
+      formData.append('clientId', client);
+      formData.append('loanAmount', LoanAmount);
+      formData.append('serviceId', serviceId);
+      formData.append('Aadharcard', Aadharcard);
+      formData.append('Pancard', Pancard);
 
       const leadApiCall = await axios({
-        method: "post",
-        url: "http://localhost:5000/api/v1/crm/createleadforGoldloan",
+        method: 'post',
+        url: 'http://localhost:5000/api/v1/crm/createleadforGoldloan',
         data: formData,
         headers: {
           Authorization: `Bearer ${token}`,
-          "Content-Type": "multipart/form-data",
+          'Content-Type': 'multipart/form-data',
         },
       });
 
       console.log(leadApiCall);
+
+      // Display success toast
+      toast.success('Lead created successfully!');
     } catch (error) {
       console.log(error);
+
+      // Display error toast
+      if (error.response && error.response.data && error.response.data.message) {
+        toast.error(error.response.data.message);
+      } else {
+        toast.error('Failed to create lead. Please try again.');
+      }
     }
   };
 
+
+  const handleAadharCard = (e1) => {
+    const file = e1.target.files[0];
+    setAadharcard(file);
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setAadharcardpreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+  const handlePanCard = (e2) => {
+    const file = e2.target.files[0];
+    setPancard(file);
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPancardpreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
   // console.log(loanAmount, client, gender, mobile, DOB, pan, zip);
   return (
     <div className="flex justify-center items-center">
@@ -128,13 +166,13 @@ const Gold = () => {
           <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
             <label
               className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-              for="grid-zip"
+              for="grid-city"
             >
               Service*
             </label>
             <input
               className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-              id="grid-zip"
+              id="grid-city"
               type="text"
               defaultValue={service}
               readOnly
@@ -142,41 +180,68 @@ const Gold = () => {
           </div>
         </div>
         <div className="flex flex-wrap -mx-3 mb-2">
-          <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-            <label
-              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-              for="grid-city"
-            >
-              Aadhar Card*
-            </label>
-            <input
-              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-              id="grid-city"
-              type="file"
-              placeholder="Albuquerque"
-              onChange={(e) => {
-                setAadharcard(e.target.files[0]);
-              }}
-            />
-          </div>
-          <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-            <label
-              className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-              for="grid-zip"
-            >
-              Pan Card*
-            </label>
-            <input
-              className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-              id="grid-zip"
-              type="file"
-              placeholder=""
-              onChange={(e) => {
-                setPancard(e.target.files[0]);
-              }}
-            />
-          </div>
-        </div>
+  <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="aadharcard-input">
+      Aadhar Card*
+    </label>
+    <button
+     className="appearance-none block bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+      onClick={() => {
+        document.getElementById('aadharcard-input').click();
+      }}
+    >
+      Upload file
+    </button> 
+    <input
+      className="hidden"
+      id="aadharcard-input"
+      type="file"
+      placeholder=""
+      onChange={handleAadharCard}
+    />
+    {Aadharcardpreview && (
+      <div>
+        <p>Aadhar Card Preview:</p>
+        <img
+          src={Aadharcardpreview}
+          alt="Aadhar Card Preview"
+          style={{ maxWidth: '100%', marginTop: '10px' }}
+        />
+      </div>
+    )}
+  </div>
+
+  <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="pancard-input">
+      Pan Card*
+    </label>
+    <button
+      className="appearance-none block bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+      onClick={() => {
+        document.getElementById('pancard-input').click();
+      }}
+    >
+      Upload file
+    </button>
+    <input
+      className="hidden"
+      id="pancard-input"
+      type="file"
+      placeholder=""
+      onChange={handlePanCard}
+    />
+    {Pancardpreview && (
+      <div>
+        <p>Pan Card Preview:</p>
+        <img
+          src={Pancardpreview}
+          alt="Pan Card Preview"
+          style={{ maxWidth: '100%', marginTop: '10px' }}
+        />
+      </div>
+    )}
+  </div>
+</div>
 
         <div className="mt-5 flex justify-center">
           <button
@@ -187,6 +252,7 @@ const Gold = () => {
           </button>
         </div>
       </form>
+      <ToastContainer />
     </div>
   );
 };
