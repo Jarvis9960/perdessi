@@ -3,8 +3,8 @@ import CommentModel from "../Models/CommentInLead.js";
 export const createCommentForLead = async (req, res) => {
   try {
     const { leadId, comment, leadModel } = req.body;
-
-    if (!leadId || !comment || !leadModel) {
+    // || !leadModel
+    if (!leadId || !comment  ) {
       return res
         .status(422)
         .json({ status: false, message: "Please provide leadid or comment" });
@@ -52,7 +52,7 @@ export const getCommentByLeadid = async (req, res) => {
         .json({ status: false, message: "leadid is not given for query" });
     }
 
-    const savedComment = await CommentModel.find({ LeadId: leadId }).populate("LeadId");
+    const savedComment = await CommentModel.find({ LeadId: leadId }).populate("Employee");
 
     if (savedComment < 1) {
       return res

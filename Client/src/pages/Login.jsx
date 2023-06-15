@@ -36,20 +36,23 @@ const Login = () => {
         "http://localhost:5000/api/v1/crm/employeelogin",
         data
       );
-      console.log(res);
+      console.log(res.data.success);
       if (res.data.success) {
         localStorage.setItem("token", JSON.stringify(res.data.Token));
         localStorage.setItem("role", (res.data.role));
-        toast.success(data.message, {
+        toast.success(res.data.message, {
           position: toast.POSITION.TOP_RIGHT})
-        navigate("/dashboard");
+        setTimeout(() => {
+            navigate("/dashboard");
+        }, 2000);
+
       } else {
         toast.error(res.data.message, {
           position: toast.POSITION.TOP_RIGHT});
       }
     } catch (error) {
       console.log(error);
-      toast.error("something went wrong", {
+      toast.error("Incorrect password or email", {
         position: toast.POSITION.TOP_RIGHT});
     }
   };
@@ -98,7 +101,7 @@ const Login = () => {
             </button>
           </div>
         </form>
-
+<ToastContainer/>
         <p className="mt-8 text-xs font-light text-center text-gray-700">
           {" "}
           Don't have an account?{" "}

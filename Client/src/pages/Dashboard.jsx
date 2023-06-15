@@ -26,6 +26,7 @@ import ShapeChart from "../components/graphs/ShapeGraph";
 import LoanInfoCard from "../utils/LoanInfoCard";
 import DashboardData from "../components/DashboardData";
 import AllleadGraph from "../components/AllleadGraph";
+import MistableEmp from "../components/MistableEmp";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -89,6 +90,9 @@ function Dashboard() {
               
             <div className="sm:flex sm:justify-between sm:items-center mb-8">
               <DashboardData />
+            </div>
+            <div className="sm:flex sm:justify-between sm:items-center mb-8 overflow-x-scroll">
+              <MistableEmp />
             </div>
             <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
               <h1 className="font-bold text-2xl underline">
