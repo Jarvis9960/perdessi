@@ -84,9 +84,6 @@ function Dashboard() {
     } else if (clientState.isError === false) {
       setClientData(clientState.clients.clients);
     }
-  }, []);
-
-  useEffect(() => {
     if (!tokenData) {
       navigate("/login");
     } else {
