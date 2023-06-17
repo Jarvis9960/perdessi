@@ -724,20 +724,6 @@ export const totalLeadForParticularEmployee = async (req, res) => {
 
 export const totalMISreport = async (req, res) => {
   try {
-    const { currentUserId } = req.query;
-
-    if (req.user.role !== "admin") {
-      return res
-        .status(401)
-        .json({ status: false, message: "user is not admin" });
-    }
-
-    if (!currentUserId) {
-      return res
-        .status(401)
-        .json({ status: false, message: "No Id is present to query" });
-    }
-
     // For All Lead 
     const homeLoanLeadCount = await HomeLoanModel.find({
     }).countDocuments();
