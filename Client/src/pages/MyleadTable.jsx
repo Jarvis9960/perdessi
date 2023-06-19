@@ -2,8 +2,6 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-
-import './popstyle.css'
 const MyleadTable = ({ loandetail, length }) => {
   const [view, setview] = useState(false);
   const [popupdata, setpopupdata] = useState([]);
@@ -38,6 +36,173 @@ const MyleadTable = ({ loandetail, length }) => {
   }, []);
 
   const handlenavigate = useNavigate();
+
+  // Function for Update status Data
+  const UpdateStatus = async (id, serviceName) => {
+    console.log(`Update Status is Working for this is ${id}`);
+    console.log(serviceName);
+    try {
+      if (serviceName === "personal loan") {
+        await axios({
+          method: "patch",
+          url: `http://localhost:5000/api/v1/crm/updatepersonalloanPDS?LoanId=${id}`,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          data : {}
+        }).then((res) => {
+          console.log(res.data.response);
+        });
+      }
+      if (serviceName === "Mortgage  Loan") {
+        await axios({
+          method: "patch",
+          url: `http://localhost:5000/api/v1/crm/updatemortgageloanPDS?LoanId=${id}`,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          data : {}
+        }).then((res) => {
+          console.log(res.data.response);
+        });
+      }
+      if (serviceName === "Business Loan") {
+        await axios({
+          method: "patch",
+          url: `http://localhost:5000/api/v1/crm/updatebusinessloanPDS?LoanId=${id}`,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          data : {}
+        }).then((res) => {
+          console.log(res.data.response);
+        });
+      }
+      if (serviceName === "Home  Loan") {
+        await axios({
+          method: "patch",
+          url: `http://localhost:5000/api/v1/crm/updatehomeloanPDS?LoanId=${id}`,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          data : {}
+        }).then((res) => {
+          console.log(res.data.response);
+        });
+      }
+      if (serviceName === "Gold Loan") {
+        await axios({
+          method: "patch",
+          url: `http://localhost:5000/api/v1/crm/updategoldloanPDS?LoanId=${id}`,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          data : {}
+        }).then((res) => {
+          console.log(res.data.response);
+        });
+      }
+      if (serviceName === "Credit Card") {
+        await axios({
+          method: "patch",
+          url: `http://localhost:5000/api/v1/crm/updatecreditcardPDS?LoanId=${id}`,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          data : {}
+        }).then((res) => {
+          console.log(res.data.response);
+        });
+      }
+      if (serviceName === "New Correction Pan application") {
+        await axios({
+          method: "patch",
+          url: `http://localhost:5000/api/v1/crm/updatenewcorrectionpanapplicationPDS?LoanId=${id}`,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          data : {}
+        }).then((res) => {
+          console.log(res.data.response);
+        });
+      }
+      if (serviceName === "Shop Act") {
+        await axios({
+          method: "patch",
+          url: `http://localhost:5000/api/v1/crm/updateshopactPDS?LoanId=${id}`,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          data : {}
+        }).then((res) => {
+          console.log(res.data.response);
+        });
+      }
+      if (serviceName === "Passport") {
+        await axios({
+          method: "patch",
+          url: `http://localhost:5000/api/v1/crm/updatepassportPDS?LoanId=${id}`,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          data : {}
+        }).then((res) => {
+          console.log(res.data.response);
+        });
+      }
+      if (serviceName === "GST registration application") {
+        await axios({
+          method: "patch",
+          url: `http://localhost:5000/api/v1/crm/updateGSTRegistrationPDS?LoanId=${id}`,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          data : {}
+        }).then((res) => {
+          console.log(res.data.response);
+        });
+      }
+      if (serviceName === "UDYAM Registration") {
+        await axios({
+          method: "patch",
+          url: `http://localhost:5000/api/v1/crm/updateudyamcertificatePDS?LoanId=${id}`,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          data : {}
+        }).then((res) => {
+          console.log(res.data.response);
+        });
+      }
+      if (serviceName === "Car Loan") {
+        await axios({
+          method: "patch",
+          url: `http://localhost:5000/api/v1/crm/updatecarloanPDS?LoanId=${id}`,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          data : {}
+        }).then((res) => {
+          console.log(res.data.response);
+        });
+      }
+      if (serviceName === "Food Lisence") {
+        await axios({
+          method: "patch",
+          url: `http://localhost:5000/api/v1/crm/updatefoodlisencePDS?LoanId=${id}`,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          data : {}
+        }).then((res) => {
+          console.log(res.data.response);
+        });
+      }
+      popupdata ? setview(true) : setview(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   // Function for Fetch Data in Pop
   const Fetchpopdata = async (id, serviceName) => {
@@ -434,7 +599,7 @@ const MyleadTable = ({ loandetail, length }) => {
                           >
                             Update
                           </button>
-                        </Link>
+                        </div>
                         <button
                           type="button"
                           className="inline-block rounded bg-blue-300 mx-4 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-black shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"

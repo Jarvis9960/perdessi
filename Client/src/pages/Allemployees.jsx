@@ -4,10 +4,13 @@ import Header from "../partials/Header";
 import WelcomeBanner from "../partials/dashboard/WelcomeBanner";
 import Tableempolyee from "./Tableempolyee";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Allemployees = () => {
   const navigate = useNavigate();
   const [authScreen, setAuthScreen] = useState(true);
+  const [number, setnumber] = useState();
+  const [loandetail, setloandetail] = useState([]);
   let role = localStorage.getItem("role");
   let tokenData = localStorage.getItem("token");
   let tokenExpiry;
@@ -37,6 +40,30 @@ const Allemployees = () => {
   }, []);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
+  
+  // searching _
+  const Searchbynum = async () => {
+    await axios({
+      method: "get",
+      url: `http://localhost:5000/api/v1/crm/getemployeebyIdNum?employeeId=${number}`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        if (res.data) {
+          console.log(res.data.fetchdata);
+          setloandetail(res.data.fetchdata);
+        }
+      })
+      .catch((err) => {
+        console.log("inside the catch");
+        console.log(err.data.response.message);
+      });
+  };
+
+
+  const length = loandetail;
 
   if (authScreen) {
     return (
@@ -71,10 +98,20 @@ const Allemployees = () => {
                   <input
                     type="text"
                     className="block w-full px-4 py-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
-                    placeholder="Search..."
+                    placeholder="Empolyee ID"
+                    onChange={(e) => {
+                      setnumber(e.target.value);
+                    }}
                   />
-                  <button className="px-4 text-white bg-blue-500 border-l rounded ">
+                  <button className="px-4 text-white bg-blue-500 border-l rounded "
+                    onClick={() => {
+                      Searchbynum();
+                    }}>
                     Search
+                  </button>
+                  <button className="px-4 text-white bg-green-500 border-l rounded "
+                    onClick={() => {setloandetail(undefined)}}>
+                    Reset
                   </button>
                 </div>
               </div>
@@ -82,7 +119,7 @@ const Allemployees = () => {
               Add Empolyee
             </button>
             <div className="sm:flex sm:justify-between sm:items-center mb-8">
-              <Tableempolyee/>
+              <Tableempolyee loandetail ={loandetail} length={length}/>
             </div>
           </div>
         </main>

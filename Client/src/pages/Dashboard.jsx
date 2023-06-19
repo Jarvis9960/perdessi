@@ -41,6 +41,7 @@ function Dashboard() {
   const [data, setData] = useState([]);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [misdata, setMisData] = useState([]);
+  const [mistabledata, setMisTableData] = useState([]);
   const [empId, setEmpId] = useState();
   const [employee, setEmployee] = useState();
   const [clientData, setClientData] = useState("");
@@ -56,16 +57,16 @@ function Dashboard() {
   let currentDate = new Date();
 
   useEffect(() => {
+    // Get all data count
     (async function() {
       await axios.get("http://localhost:5000/api/v1/crm/getallemployee").then((res) => {
-      console.log(res.data.fetchdata);
-      setData(res.data.fetchdata);
-      setEmpId(res.data.fetchdata);
+        console.log(res.data.fetchdata);
+        setData(res.data.fetchdata);
+        setEmpId(res.data.fetchdata);
+      });
     });
-  })();
-  }, []);
 
-  useEffect(() => {
+    // MIS lead data for MIS download
     axios({
       method: "get",
       url: `http://localhost:5000/api/v1/crm/getmisreportofleads`,
@@ -73,17 +74,31 @@ function Dashboard() {
         Authorization: `Bearer ${token}`,
       },
     }).then((res) => {
-      console.log(res.data.response);
+      console.log(res.data);
       setMisData(res.data.response);
     });
-  }, []);
 
-  useEffect(() => {
+
+    // MIS Table data fetch of all Count and Amount
+    axios({
+      method: "get",
+      url: `http://localhost:5000/api/v1/crm/getmistabledata`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((res) => {
+      console.log(res.data.data);
+      setMisTableData(res.data.data)
+    });
+
+    // Role verification
     if (role === "admin") {
       setClientData(clientAdminState.clientAdmin.already);
     } else if (clientState.isError === false) {
       setClientData(clientState.clients.clients);
     }
+
+    // token verification
     if (!tokenData) {
       navigate("/login");
     } else {
@@ -117,6 +132,7 @@ function Dashboard() {
 
   console.log(data);
   console.log(employee);
+  console.log(mistabledata);
   console.log("EmpId", empId);
   return (
     <div className="flex h-screen overflow-hidden">
@@ -140,7 +156,7 @@ function Dashboard() {
               {role === "admin" ? <MistableEmp misdata={misdata} /> : <></>}
             </div>
             <div className="sm:flex sm:justify-between sm:items-center mb-8">
-              {role === "admin" ? <MistableReport /> : <></>}
+              {role === "admin" ? <MistableReport mistabledata={mistabledata} /> : <></>}
             </div>
 
             <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto my-5">

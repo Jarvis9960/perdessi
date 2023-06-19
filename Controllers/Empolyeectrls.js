@@ -34,6 +34,31 @@ export const getEmpolyeeID = async (req, resp) => {
   }
 };
 
+export const getEmpolyeebyNum = async (req, resp) => {
+  try {
+    
+    const { employeeId } = req.query;
+
+    if (!employeeId) {
+      return resp
+        .status(422)
+        .json({ status: false, message: "Empolyee ID is not giving" });
+    }
+    const fetchdata = await employeeModel
+      .findOne({ employeeid : employeeId })
+      .select("-password");
+    resp.status(200).send({
+      fetchdata: fetchdata,
+    });
+  } catch (error) {
+    resp.status(500).send({
+      success: false,
+      message: "Customer Data Not Fatched Yet",
+      fetchdata,
+    });
+  }
+};
+
 export const getEmpolyeeIDforadmin = async (req, resp) => {
   try {
     const fetchdata = await employeeModel

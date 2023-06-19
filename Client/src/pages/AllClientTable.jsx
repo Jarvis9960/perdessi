@@ -5,7 +5,7 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 
-const AllClientTable = () => {
+const AllClientTable = ({loandetail}) => {
   const [data, setData] = useState([]);
   const [id, setId] = useState();
   const [fname, setFname] = useState();
@@ -45,8 +45,11 @@ const AllClientTable = () => {
     }
   }, []);
 
-   useEffect(() => {
+  useEffect(() => {
     adminDispatch({ type: "Loading" });
+    if(loandetail == undefined || loandetail > 0){
+      setData(loandetail)
+    }else{
     try {
       axios({
         method: "get",
@@ -64,8 +67,8 @@ const AllClientTable = () => {
       console.log(error);
       adminDispatch({ type: "Failed" });
     }
-   }, [])
-
+  }
+  }, [])
 
   const viewclick = () => {
     console.log("CLICKED");
