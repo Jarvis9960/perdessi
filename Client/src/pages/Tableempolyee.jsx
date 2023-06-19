@@ -98,6 +98,7 @@ const Tableempolyee = ({loandetail,length}) => {
             <th class="w-1/4 px-4 py-2">Action</th>
           </tr>
         </thead>
+
         <tbody>
           {data.length>0 ? <>{data.map((e, id) => {
             return (

@@ -88,7 +88,7 @@ const AllClient = () => {
           <main>
             <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
               <WelcomeBanner />
-              <div className="flex items-center">
+              <div className="flex items-center ">
                 <div className="flex border border-purple-200 rounded w-full">
                   <input
                     type="text"
@@ -115,19 +115,10 @@ const AllClient = () => {
               >
                 Add Client
               </button>
-              {loandetail === "There is no data with this number" ? (
-                <>
-                  <div className="w-10/12 bg-red-400 text-center h-fit rounded-2xl">
-                    <h1 className="py-10 px-10 text-5xl text-white">
-                      NO DATA FOUND
-                    </h1>
-                  </div>
-                </>
-              ) : (
-                <div className="sm:flex sm:justify-between sm:items-center mb-8">
-                  <AllClientTable loandetail={loandetail} />
-                </div>
-              )}
+              {/* <div className="sm:flex sm:justify-between sm:items-center mb-8  "> */}
+              <div>
+                <AllClientTable />
+              </div>
             </div>
           </main>
         </div>

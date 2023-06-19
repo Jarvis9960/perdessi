@@ -109,11 +109,11 @@ const AllClientTable = ({loandetail}) => {
     const newdate = data.toLocaleDateString();
     // console.log(data.toLocaleDateString());
     return newdate;
-  };
+  };    
 
   return (
     <>
-      <table class="table-fixed w-full overflow-y-auto h-32 bg-white">
+      <table class="table-fixed w-full  h-32 overflow-y-auto bg-white">
         <thead>
           <tr>
             <th class="w-1/6 px-4 py-2">#</th>
