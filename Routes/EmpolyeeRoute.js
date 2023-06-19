@@ -1,6 +1,7 @@
 import Express from "express";
-import {  addemployee, employeelogin, getEmpolyeeID, getEmpolyeeIDforadmin, getallemployee, updateempolyeedata, updatepass } from "../Controllers/Empolyeectrls.js";
+import {  addemployee, employeelogin, getEmpolyeeID, getEmpolyeeIDforadmin, getEmpolyeebyNum, getallemployee, updateempolyeedata, updatepass } from "../Controllers/Empolyeectrls.js";
 import { employeeTokenCheck } from "../Middleware/Tokencheck.js";
+import { adminTokenCheck } from "../Middleware/TokencheckAdmin.js";
 
 
 //rest object
@@ -10,6 +11,9 @@ const route = Express.Router();
 
 // get all employee route
 route.get('/getallemployee', getallemployee);
+
+// get employee by there id numbers route
+route.get('/getemployeebyIdNum',adminTokenCheck, getEmpolyeebyNum);
 
 // get my Emopyee ID
 route.get('/getEmpolyeeID',employeeTokenCheck, getEmpolyeeID);

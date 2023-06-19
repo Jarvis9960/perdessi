@@ -725,89 +725,115 @@ export const totalLeadForParticularEmployee = async (req, res) => {
 export const totalMISreport = async (req, res) => {
   try {
     // For All Lead 
-    const homeLoanLeadCount = await HomeLoanModel.find({
-    }).countDocuments();
-    const businessLoanLeadCount = await BusinessLoanModel.find({
-    }).countDocuments();
-    const personalLoanLeadCount = await PersonalLoanModel.find({
-    }).countDocuments();
-    const mortgageLoanLeadCount = await MortgageLoanModel.find({
-    }).countDocuments();
-    const goldLoanLeadCount = await GoldLoanModel.find({
-    }).countDocuments();
-    const creditLoanLeadCount = await CreditCardModel.find({
-    }).countDocuments();
-    const carLoanLeadCount = await CarLoanModel.find({
-    }).countDocuments();
-    const gstLoanLeadCount = await GSTLoanModel.find({
-    }).countDocuments();
-    const passportLoanLeadCount = await PassportModel.find({
-    }).countDocuments();
+    const homeLoanLeadCount = await HomeLoanModel.find({}).countDocuments();
+    const businessLoanLeadCount = await BusinessLoanModel.find({}).countDocuments();
+    const personalLoanLeadCount = await PersonalLoanModel.find({}).countDocuments();
+    const mortgageLoanLeadCount = await MortgageLoanModel.find({}).countDocuments();
+    const goldLoanLeadCount = await GoldLoanModel.find({}).countDocuments();
+    const creditLoanLeadCount = await CreditCardModel.find({}).countDocuments();
+    const carLoanLeadCount = await CarLoanModel.find({}).countDocuments();
+    const gstLoanLeadCount = await GSTLoanModel.find({}).countDocuments();
+    const passportLoanLeadCount = await PassportModel.find({}).countDocuments();
     const newCorrectionPanApplicationCount =
       await NewCorrectionPanApplicationModel.find({
       }).countDocuments();
-    const shopActLeadCount = await ShopActModel.find({
-    }).countDocuments();
-    const udyamCertificateLoanLeadCount = await UdyamCertificateModel.find({
-    }).countDocuments();
-    const foodLisenceLoanLeadCount = await FoodLisenceModel.find({
-    }).countDocuments();
+    const shopActLeadCount = await ShopActModel.find({}).countDocuments();
+    const udyamCertificateLoanLeadCount = await UdyamCertificateModel.find({}).countDocuments();
+    const foodLisenceLoanLeadCount = await FoodLisenceModel.find({}).countDocuments();
 
 // For Total Amount76
 
-    let homeLoanLeadAmout = await HomeLoanModel.find({
-    })
+    let hLLA = await HomeLoanModel.find({})
+      let homeLoanLeadAmout = 0
+      for (let index = 0; index < hLLA.length; index++) {
+        homeLoanLeadAmout = homeLoanLeadAmout + hLLA[index].LoanAmount;
+      }
+    let BLLA = await BusinessLoanModel.find({})
+    let businessLoanLeadAmout = 0
+    for (let index = 0; index < BLLA.length; index++) {
+      businessLoanLeadAmout = businessLoanLeadAmout + BLLA[index].LoanAmount;
+    }
 
-    let businessLoanLeadAmout = await BusinessLoanModel.find({
-    })
+    let PLLA = await PersonalLoanModel.find({})
+    let personalLoanLeadAmout = 0
+    for (let index = 0; index < PLLA.length; index++) {
+      personalLoanLeadAmout = personalLoanLeadAmout + PLLA[index].LoanAmount;
+    }
 
-    let personalLoanLeadAmout = await PersonalLoanModel.find({
-    })
+    let MLLA = await MortgageLoanModel.find({})
+    let mortgageLoanLeadAmout = 0
+    for (let index = 0; index < MLLA.length; index++) {
+      mortgageLoanLeadAmout = mortgageLoanLeadAmout + MLLA[index].LoanAmount;
+    }
 
-    let mortgageLoanLeadAmout = await MortgageLoanModel.find({
-    })
+    let GLLA = await GoldLoanModel.find({})
+    let goldLoanLeadAmout = 0
+    for (let index = 0; index < GLLA.length; index++) {
+      goldLoanLeadAmout = goldLoanLeadAmout + GLLA[index].LoanAmount;
+    }
 
-    let goldLoanLeadAmout = await GoldLoanModel.find({
-    })
+    let CLLA = await CreditCardModel.find({})
+    let creditLoanLeadAmout = 0
+    for (let index = 0; index < CLLA.length; index++) {
+      creditLoanLeadAmout = creditLoanLeadAmout + CLLA[index].LoanAmount;
+    }
 
-    let creditLoanLeadAmout = await CreditCardModel.find({
-    })
+    let CLA = await CarLoanModel.find({})
+    let carLoanLeadAmout = 0
+    for (let index = 0; index < CLA.length; index++) {
+      carLoanLeadAmout = carLoanLeadAmout + CLA[index].LoanAmount;
+    }
+    let GLA = await GSTLoanModel.find({})
+    let gstLoanLeadAmout = 0
+    for (let index = 0; index < GLA.length; index++) {
+      gstLoanLeadAmout = gstLoanLeadAmout + GLA[index].LoanAmount;
+    }
 
-    let carLoanLeadAmout = await CarLoanModel.find({
-    })
-    let gstLoanLeadAmout = await GSTLoanModel.find({
-    })
+    let PLA = await PassportModel.find({})
+    let passportLoanLeadAmout = 0
+    for (let index = 0; index < PLLA.length; index++) {
+      passportLoanLeadAmout = passportLoanLeadAmout + PLLA[index].LoanAmount;
+    }
+    let NCPA = await NewCorrectionPanApplicationModel.find({})
+    let newCorrectionPanApplication = 0
+    for (let index = 0; index < NCPA.length; index++) {
+      newCorrectionPanApplication = newCorrectionPanApplication + NCPA[index].LoanAmount;
+    }
 
-    let passportLoanLeadAmout = await PassportModel.find({
-    })
-    let newCorrectionPanApplication = await NewCorrectionPanApplicationModel.find({
-    })
-
-    let shopActLeadAmout = await ShopActModel.find({
-    })
-    let udyamCertificateLoanLeadAmout = await UdyamCertificateModel.find({
-    })
-    let foodLisenceLoanLeadAmout = await FoodLisenceModel.find({
-    })
+    let SALA = await ShopActModel.find({})
+    let shopActLeadAmout = 0
+    for (let index = 0; index < SALA.length; index++) {
+      shopActLeadAmout = shopActLeadAmout + SALA[index].LoanAmount;
+    }
+    let UCLA = await UdyamCertificateModel.find({})
+    let udyamCertificateLoanLeadAmout = 0
+    for (let index = 0; index < UCLA.length; index++) {
+      udyamCertificateLoanLeadAmout = udyamCertificateLoanLeadAmout + UCLA[index].LoanAmount;
+    }
+    let FLLA = await FoodLisenceModel.find({})
+    let foodLisenceLoanLeadAmout = 0
+    for (let index = 0; index < FLLA.length; index++) {
+      foodLisenceLoanLeadAmout = foodLisenceLoanLeadAmout + FLLA[index].LoanAmount;
+    }
     
 
     return res.status(202).json({
       status: true,
       message: "successfully fetched lead count for particular employee",
       data: {
-        homeLoanLeadCount: { homeLoanLeadCount, homeLoanLeadAmout },
-        businessLoanLeadCount: { businessLoanLeadCount, businessLoanLeadAmout },
-        personalLoanLeadCount: { personalLoanLeadCount, personalLoanLeadAmout },
-        mortgageLoanLeadCount: { personalLoanLeadCount, personalLoanLeadAmout },
-        creditLoanLeadCount: { creditLoanLeadCount, creditLoanLeadAmout },
-        goldLoanLeadCount: { goldLoanLeadCount, goldLoanLeadAmout },
-        carLoanLeadCount: { carLoanLeadCount, carLoanLeadAmout },
-        gstLoanLeadCount: { gstLoanLeadCount, gstLoanLeadAmout },
-        passportLoanLeadCount: { passportLoanLeadCount, passportLoanLeadAmout },
-        newCorrectionPanApplicationCount: { newCorrectionPanApplicationCount, newCorrectionPanApplicationAmout },
-        shopActLeadCount: { shopActLeadCount, shopActLeadAmout },
-        udyamCertificateLoanLeadCount: { udyamCertificateLoanLeadCount, udyamCertificateLoanLeadAmout },
-        foodLisenceLoanLeadCount: { foodLisenceLoanLeadCount, foodLisenceLoanLeadAmout },
+        homeLoan : { homeLoanLeadCount, homeLoanLeadAmout },
+        businessLoan : { businessLoanLeadCount, businessLoanLeadAmout },
+        personalLoan : { personalLoanLeadCount, personalLoanLeadAmout },
+        mortgageLoan : { mortgageLoanLeadCount, mortgageLoanLeadAmout },
+        creditLoan : { creditLoanLeadCount, creditLoanLeadAmout },
+        goldLoan : { goldLoanLeadCount, goldLoanLeadAmout },
+        carLoan : { carLoanLeadCount, carLoanLeadAmout },
+        gstLoan : { gstLoanLeadCount, gstLoanLeadAmout },
+        passportLoan : { passportLoanLeadCount, passportLoanLeadAmout },
+        newCorrectionPanApplica : { newCorrectionPanApplicationCount, newCorrectionPanApplication },
+        shopAct : { shopActLeadCount, shopActLeadAmout },
+        udyamCertificateLoan : { udyamCertificateLoanLeadCount, udyamCertificateLoanLeadAmout },
+        foodLisenceLoan : { foodLisenceLoanLeadCount, foodLisenceLoanLeadAmout },
       }
     });
   } catch (error) {

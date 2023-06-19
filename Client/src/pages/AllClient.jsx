@@ -4,11 +4,14 @@ import Header from "../partials/Header";
 import WelcomeBanner from "../partials/dashboard/WelcomeBanner";
 import { Link, useNavigate } from "react-router-dom";
 import AllClientTable from "./AllClientTable";
+import axios from "axios";
 
 const AllClient = () => {
   const navigate = useNavigate();
   const [view, setview] = useState(false);
   const [popupdata, setpopupdata] = useState([]);
+  const [number, setnumber] = useState();
+  const [loandetail, setloandetail] = useState([]);
   const [authScreen, setAuthScreen] = useState(true);
   let tokenData = localStorage.getItem("token");
   let tokenExpiry;
@@ -19,6 +22,27 @@ const AllClient = () => {
     token = JSON.parse(tokenData).usertoken;
   }
   let currentDate = new Date();
+
+  // searching _
+  const Searchbynum = async () => {
+    await axios({
+      method: "get",
+      url: `http://localhost:5000/api/v1/crm/getclientbyNumber?phone=${number}`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        if (res.data.status) {
+          console.log(res.data.response);
+          setloandetail(res.data.response);
+        }
+      })
+      .catch((err) => {
+        console.log("inside the catch");
+        console.log(err.data.response.message);
+      });
+  };
 
   useEffect(() => {
     if (!tokenData) {
@@ -69,9 +93,17 @@ const AllClient = () => {
                   <input
                     type="text"
                     className="block w-full px-4 py-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
-                    placeholder="Search..."
+                    placeholder="Search by Number"
+                    onChange={(e) => {
+                      setnumber(e.target.value);
+                    }}
                   />
-                  <button className="px-4 text-white bg-blue-500 border-l rounded ">
+                  <button
+                    className="px-4 text-white bg-blue-500 border-l rounded "
+                    onClick={() => {
+                      Searchbynum();
+                    }}
+                  >
                     Search
                   </button>
                 </div>

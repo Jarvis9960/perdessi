@@ -19,7 +19,7 @@ Route.get(
   dashboardForTotolNumberofDocumentForAdmin
 )
 
-// Success -- Failed -- Pending
+// Success -- Failed -- Pending For Admin
 
 Route.get(
   "/getnumberofsuccessleadforallserviceadmin", 
@@ -40,7 +40,7 @@ Route.get(
 )
 
 
-// Success -- Failed -- Pending
+// Success -- Failed -- Pending For Empolyee
 
 
 Route.get(

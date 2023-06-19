@@ -2,7 +2,6 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-
 const MyleadTable = ({ loandetail, length }) => {
   const [view, setview] = useState(false);
   const [popupdata, setpopupdata] = useState([]);
@@ -37,6 +36,173 @@ const MyleadTable = ({ loandetail, length }) => {
   }, []);
 
   const handlenavigate = useNavigate();
+
+  // Function for Update status Data
+  const UpdateStatus = async (id, serviceName) => {
+    console.log(`Update Status is Working for this is ${id}`);
+    console.log(serviceName);
+    try {
+      if (serviceName === "personal loan") {
+        await axios({
+          method: "patch",
+          url: `http://localhost:5000/api/v1/crm/updatepersonalloanPDS?LoanId=${id}`,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          data : {}
+        }).then((res) => {
+          console.log(res.data.response);
+        });
+      }
+      if (serviceName === "Mortgage  Loan") {
+        await axios({
+          method: "patch",
+          url: `http://localhost:5000/api/v1/crm/updatemortgageloanPDS?LoanId=${id}`,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          data : {}
+        }).then((res) => {
+          console.log(res.data.response);
+        });
+      }
+      if (serviceName === "Business Loan") {
+        await axios({
+          method: "patch",
+          url: `http://localhost:5000/api/v1/crm/updatebusinessloanPDS?LoanId=${id}`,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          data : {}
+        }).then((res) => {
+          console.log(res.data.response);
+        });
+      }
+      if (serviceName === "Home  Loan") {
+        await axios({
+          method: "patch",
+          url: `http://localhost:5000/api/v1/crm/updatehomeloanPDS?LoanId=${id}`,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          data : {}
+        }).then((res) => {
+          console.log(res.data.response);
+        });
+      }
+      if (serviceName === "Gold Loan") {
+        await axios({
+          method: "patch",
+          url: `http://localhost:5000/api/v1/crm/updategoldloanPDS?LoanId=${id}`,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          data : {}
+        }).then((res) => {
+          console.log(res.data.response);
+        });
+      }
+      if (serviceName === "Credit Card") {
+        await axios({
+          method: "patch",
+          url: `http://localhost:5000/api/v1/crm/updatecreditcardPDS?LoanId=${id}`,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          data : {}
+        }).then((res) => {
+          console.log(res.data.response);
+        });
+      }
+      if (serviceName === "New Correction Pan application") {
+        await axios({
+          method: "patch",
+          url: `http://localhost:5000/api/v1/crm/updatenewcorrectionpanapplicationPDS?LoanId=${id}`,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          data : {}
+        }).then((res) => {
+          console.log(res.data.response);
+        });
+      }
+      if (serviceName === "Shop Act") {
+        await axios({
+          method: "patch",
+          url: `http://localhost:5000/api/v1/crm/updateshopactPDS?LoanId=${id}`,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          data : {}
+        }).then((res) => {
+          console.log(res.data.response);
+        });
+      }
+      if (serviceName === "Passport") {
+        await axios({
+          method: "patch",
+          url: `http://localhost:5000/api/v1/crm/updatepassportPDS?LoanId=${id}`,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          data : {}
+        }).then((res) => {
+          console.log(res.data.response);
+        });
+      }
+      if (serviceName === "GST registration application") {
+        await axios({
+          method: "patch",
+          url: `http://localhost:5000/api/v1/crm/updateGSTRegistrationPDS?LoanId=${id}`,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          data : {}
+        }).then((res) => {
+          console.log(res.data.response);
+        });
+      }
+      if (serviceName === "UDYAM Registration") {
+        await axios({
+          method: "patch",
+          url: `http://localhost:5000/api/v1/crm/updateudyamcertificatePDS?LoanId=${id}`,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          data : {}
+        }).then((res) => {
+          console.log(res.data.response);
+        });
+      }
+      if (serviceName === "Car Loan") {
+        await axios({
+          method: "patch",
+          url: `http://localhost:5000/api/v1/crm/updatecarloanPDS?LoanId=${id}`,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          data : {}
+        }).then((res) => {
+          console.log(res.data.response);
+        });
+      }
+      if (serviceName === "Food Lisence") {
+        await axios({
+          method: "patch",
+          url: `http://localhost:5000/api/v1/crm/updatefoodlisencePDS?LoanId=${id}`,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          data : {}
+        }).then((res) => {
+          console.log(res.data.response);
+        });
+      }
+      popupdata ? setview(true) : setview(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   // Function for Fetch Data in Pop
   const Fetchpopdata = async (id, serviceName) => {

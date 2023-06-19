@@ -6,6 +6,7 @@ import {
   MyClintsctrl,
   SendMAilTOAllctrl,
   getClientById,
+  getClientBymobile,
   getClientForCurrentUser
 } from "../Controllers/Clientctrl.js";
 import { employeeTokenCheck } from "../Middleware/Tokencheck.js";
@@ -39,5 +40,7 @@ Route.get("/getclientbyid", employeeTokenCheck, getClientById);
 // get client by id for admin 
 Route.get("/getclientforadminbyId", adminTokenCheck, getClientById);
 
+// get Client search by number 
+Route.get("/getclientbyNumber", employeeTokenCheck, getClientBymobile);
 
 export default Route;

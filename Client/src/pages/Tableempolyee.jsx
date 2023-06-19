@@ -17,7 +17,7 @@ const handleEdit = async () => {
   }
 };
 
-const Tableempolyee = () => {
+const Tableempolyee = ({loandetail,length}) => {
   const [data, setData] = useState([]);
   const [pan, setPan] = useState();
   const [view, setview] = useState(false);
@@ -52,11 +52,12 @@ const Tableempolyee = () => {
     }
   }, []);
 
+  console.log(loandetail);
   useEffect(() => {
-    axios.get("http://localhost:5000/api/v1/crm/getallemployee").then((res) => {
-      console.log(res.data.fetchdata);
-      setData(res.data.fetchdata);
-    });
+      axios.get("http://localhost:5000/api/v1/crm/getallemployee").then((res) => {
+        console.log(res.data.fetchdata);
+        setData(res.data.fetchdata);
+      });
   }, []);
 
   // single data fetch FUNCTION
@@ -97,11 +98,12 @@ const Tableempolyee = () => {
             <th class="w-1/4 px-4 py-2">Action</th>
           </tr>
         </thead>
-        <tbody className="overflow-auto">
-          {data.map((e, id) => {
+
+        <tbody>
+          {data.length>0 ? <>{data.map((e, id) => {
             return (
               <tr>
-                <td class="border px-1 py-2 text-center">{id + 1}</td>
+                <td class="border px-1 py-2 text-center">{e.employeeid}</td>
                 <td class="border px-1 py-2 text-center">
                   {e.first_name || e.firstName} {e.last_name || e.lastname}
                 </td>
@@ -128,7 +130,35 @@ const Tableempolyee = () => {
                 </td>
               </tr>
             );
-          })}
+          })}</>:<>
+          <tr>
+                <td class="border px-1 py-2 text-center">{data.employeeid}</td>
+                <td class="border px-1 py-2 text-center">
+                  {data.first_name || data.firstName} {data.last_name || data.lastname}
+                </td>
+                <td class="border px-1 py-2 text-center">{data.number}</td>
+                <td class="border px-1 py-2 text-center">{data.email}</td>
+                <td class="border px-1 py-2 text-center">{data.role}</td>
+                <td class="border px-1 py-2 text-center">
+                  <button
+                    className="bg-blue-500 mx-2 p-2 text-white"
+                    onClick={() => {
+                      singlefetch(data._id);
+                    }}
+                  >
+                    View
+                  </button>
+                  <button
+                    className="bg-green-500 p-2 text-white"
+                    onClick={() => {
+                      navigate(`/updateallemployee/${data._id}`);
+                    }}
+                  >
+                    Edit
+                  </button>
+                </td>
+              </tr>
+          </>}
         </tbody>
       </table>
 

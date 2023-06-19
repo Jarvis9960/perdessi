@@ -1480,12 +1480,13 @@ export const editFoodLisenceController = async (req, res) => {
 // UPDATE SUCCESS, FAILED AND PANDING CONTROLLER
 export const editHomeLoanServiceControllerFPS = async (req, res) => {
   try {
+    const {LoanId} = req.query
     const updatedResponse = await HomeLoanModel.findByIdAndUpdate(
-      req.params.id,
+      LoanId,
       req.body,
       { new: true, runValidators: true }
     );
-
+    
     if (updatedResponse.acknowledged) {
       return res
         .status(201)
@@ -1501,8 +1502,9 @@ export const editHomeLoanServiceControllerFPS = async (req, res) => {
 
 export const editBusinessLoanServiceControllerFPS = async (req, res) => {
   try {
+    const {LoanId} = req.query
     const updatedResponse = await BusinessloanModel.findByIdAndUpdate(
-      req.params.id,
+      LoanId,
       req.body,
       { new: true, runValidators: true }
     );
@@ -1522,8 +1524,9 @@ export const editBusinessLoanServiceControllerFPS = async (req, res) => {
 
 export const editPersonalLoanServiceControllerFPS = async (req, res) => {
   try {
+    const {LoanId} = req.query
     const updatedResponse = await PersonalLoanModel.findByIdAndUpdate(
-      req.params.id,
+      LoanId,
       req.body,
       { new: true, runValidators: true }
     );
@@ -1543,8 +1546,9 @@ export const editPersonalLoanServiceControllerFPS = async (req, res) => {
 
 export const editMortgageLoanServiceControllerFPS = async (req, res) => {
   try {
+    const {LoanId} = req.query
     const updatedResponse = await MortgageLoanModel.findByIdAndUpdate(
-      req.params.id,
+      LoanId,
       req.body,
       { new: true, runValidators: true }
     );
@@ -1564,8 +1568,9 @@ export const editMortgageLoanServiceControllerFPS = async (req, res) => {
 
 export const editGoldLoanServiceControllerFPS = async (req, res) => {
   try {
+    const {LoanId} = req.query
     const updatedResponse = await GoldLoanModel.findByIdAndUpdate(
-      req.params.id,
+      LoanId,
       req.body,
       { new: true, runValidators: true }
     );
@@ -1585,8 +1590,9 @@ export const editGoldLoanServiceControllerFPS = async (req, res) => {
 
 export const editCreditCardServiceControllerFPS = async (req, res) => {
   try {
+    const {LoanId} = req.query
     const updatedResponse = await CreditCardModel.findByIdAndUpdate(
-      req.params.id,
+      LoanId,
       req.body,
       { new: true, runValidators: true }
     );
@@ -1606,8 +1612,9 @@ export const editCreditCardServiceControllerFPS = async (req, res) => {
 
 export const editCarLoanServiceControllerFPS = async (req, res) => {
   try {
+    const {LoanId} = req.query
     const updatedResponse = await CarLoanModel.findByIdAndUpdate(
-      req.params.id,
+      LoanId,
       req.body,
       { new: true, runValidators: true }
     );
@@ -1627,8 +1634,9 @@ export const editCarLoanServiceControllerFPS = async (req, res) => {
 
 export const editNewCorrectionPanApplicationFPS = async (req, res) => {
   try {
+    const {LoanId} = req.query
     const updatedResponse = await NewCorrectionPanApplicationModel.findByIdAndUpdate(
-      req.params.id,
+      LoanId,
       req.body,
       { new: true, runValidators: true }
     );
@@ -1648,8 +1656,9 @@ export const editNewCorrectionPanApplicationFPS = async (req, res) => {
 
 export const editPassportServiceControllerFPS = async (req, res) => {
   try {
+    const {LoanId} = req.query
     const updatedResponse = await PassportModel.findByIdAndUpdate(
-      req.params.id,
+      LoanId,
       req.body,
       { new: true, runValidators: true }
     );
@@ -1669,8 +1678,9 @@ export const editPassportServiceControllerFPS = async (req, res) => {
 
 export const editGSTRegistrationControllerFPS = async (req, res) => {
   try {
+    const {LoanId} = req.query
     const updatedResponse = await GSTResgistraionModel.findByIdAndUpdate(
-      req.params.id,
+      LoanId,
       req.body,
       { new: true, runValidators: true }
     );
@@ -1690,8 +1700,9 @@ export const editGSTRegistrationControllerFPS = async (req, res) => {
 
 export const editShopActControllerFPS = async (req, res) => {
   try {
+    const {LoanId} = req.query
     const updatedResponse = await ShopActModel.findByIdAndUpdate(
-      req.params.id,
+      LoanId,
       req.body,
       { new: true, runValidators: true }
     );
@@ -1711,8 +1722,9 @@ export const editShopActControllerFPS = async (req, res) => {
 
 export const editUdyamCertificateControllerFPS = async (req, res) => {
   try {
+    const {LoanId} = req.query
     const updatedResponse = await UdyamCertificateModel.findByIdAndUpdate(
-      req.params.id,
+      LoanId,
       req.body,
       { new: true, runValidators: true }
     );
@@ -1732,8 +1744,9 @@ export const editUdyamCertificateControllerFPS = async (req, res) => {
 
 export const editFoodLisenceControllerFPS = async (req, res) => {
   try {
+    const {LoanId} = req.query
     const updatedResponse = await FoodLisenceModel.findByIdAndUpdate(
-      req.params.id,
+      LoanId,
       req.body,
       { new: true, runValidators: true }
     );

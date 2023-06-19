@@ -49,6 +49,7 @@ function Dashboard() {
   const [data, setData] = useState([]);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [misdata, setMisData] = useState([]);
+  const [mistabledata, setMisTableData] = useState([]);
   const [empId, setEmpId] = useState();
   const [employee, setEmployee] = useState();
   const [clientData, setClientData] = useState("");
@@ -76,16 +77,17 @@ function Dashboard() {
     fetch("http://localhost:5000/api/v1/crm/getallemployee")
   }
   useEffect(() => {
-    (async function () {
+    // Get all data count
+    (async function() {
       await axios.get("http://localhost:5000/api/v1/crm/getallemployee").then((res) => {
         console.log(res.data.fetchdata);
         setData(res.data.fetchdata);
         setEmpId(res.data.fetchdata);
       });
     })();
-  }, []);
 
-  useEffect(() => {
+
+    // MIS lead data for MIS download
     axios({
       method: "get",
       url: `http://localhost:5000/api/v1/crm/getmisreportofleads`,
@@ -93,17 +95,31 @@ function Dashboard() {
         Authorization: `Bearer ${token}`,
       },
     }).then((res) => {
-      console.log(res.data.response);
+      console.log(res.data);
       setMisData(res.data.response);
     });
-  }, []);
 
-  useEffect(() => {
+
+    // MIS Table data fetch of all Count and Amount
+    axios({
+      method: "get",
+      url: `http://localhost:5000/api/v1/crm/getmistabledata`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((res) => {
+      console.log(res.data.data);
+      setMisTableData(res.data.data)
+    });
+
+    // Role verification
     if (role === "admin") {
       setClientData(clientAdminState.clientAdmin.already);
     } else if (clientState.isError === false) {
       setClientData(clientState.clients.clients);
     }
+
+    // token verification
     if (!tokenData) {
       navigate("/login");
     } else {
@@ -137,6 +153,7 @@ function Dashboard() {
 
   console.log(data);
   console.log(employee);
+  console.log(mistabledata);
   console.log("EmpId", empId);
 
   const handleChange = (value) => {
@@ -145,20 +162,73 @@ function Dashboard() {
   };
   return (
     <div className="flex h-screen overflow-hidden">
-    {/* Sidebar */}
-    <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+      {/* Sidebar */}
+      <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
-    {/* Content area */}
-    <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
-      {/*  Site header */}
-      <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} role={role} />
+      {/* Content area */}
+      <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
+        {/*  Site header */}
+        <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
-      <main>
-        <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
-          <WelcomeBanner />
+        <main>
+          <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
+            <WelcomeBanner />
 
-          <div className="sm:flex sm:justify-between sm:items-center mb-8">
-            <DashboardData />
+            <div className="sm:flex sm:justify-between sm:items-center mb-8">
+              <DashboardData />
+            </div>
+
+            <div className="sm:flex sm:justify-between sm:items-center mb-8 overflow-x-scroll">
+              {role === "admin" ? <MistableEmp misdata={misdata} /> : <></>}
+            </div>
+            <div className="sm:flex sm:justify-between sm:items-center mb-8">
+              {role === "admin" ? <MistableReport mistabledata={mistabledata} /> : <></>}
+            </div>
+
+            <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto my-5">
+              <h1 className="font-bold text-2xl underline">
+                All Leads Analysis Details:-
+              </h1>
+              <div className="mt-5">
+                {/* <div className="">
+                  <input type="date" name="" id="" />
+                  <input type="date" name="" id="" />
+                  <button className="bg-slate-500 text-white p-2 mx-2">
+                    Search
+                  </button>
+                </div> */}
+                {role === "admin" ? (
+                  <select
+                    name=""
+                    id=""
+                    onChange={(e) => {
+                      setEmployee(e.target.value);
+                    }}
+                  >
+                    <option selected>select Employee</option>
+                    {data.map((e, id) => {
+                      return (
+                        <>
+                          <option key={e._id} value={e._id} >
+                            {e.first_name || e.firstName}
+                          </option>
+                        </>
+                      );
+                    })}
+                  </select>
+                ) : (
+                  <></>
+                )}
+              </div>
+            </div>
+            <AllleadGraph
+              className="overflow-x-scroll w-full"
+              employee={employee}
+            />
+
+            <div className="sm:flex sm:justify-between sm:items-center mb-8">
+              <Innerdashborad />
+            </div>
           </div>
 
           <div className="sm:flex sm:justify-between sm:items-center mb-8 overflow-x-scroll">
