@@ -97,7 +97,7 @@ const Tableempolyee = () => {
             <th class="w-1/4 px-4 py-2">Action</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="overflow-auto">
           {data.map((e, id) => {
             return (
               <tr>
